@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <section class="user-search-list">
+        <h2>Search for a city:</h2>
+        <form method="get" class="weather-form">
+          <div class="user-weather-input">
+            <label for="user-search">Enter City</label>
+            <input type="text" name="user-search" class="user-city-input" />
+          </div>
+          <div class="submit">
+            <input type="submit" value="Get City Weather" />
+          </div>
+        </form>
+      </section>
+
+      <section class="city-weather-display">
+        <div class="hide">
+          <h2 class="city-name"></h2>
+          <p class="city-temp">Temp: <span></span></p>
+          <p class="city-wind">Wind: <span></span></p>
+          <p class="city-humidity">Humidity: <span></span></p>
+        </div>
+      </section>
+    </div>
+
+    <script src="./assets/js/script.js"></script>
+  </body>
+</html>

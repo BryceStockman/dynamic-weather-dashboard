@@ -1,4 +1,6 @@
 var submitBtn = document.querySelector('.weather-form');
+var saveCities = [];
+
 // On any submit you need to preventDefault
 submitBtn.addEventListener('submit', function (event) {
   event.preventDefault();
@@ -11,14 +13,17 @@ function getUserSearchInput() {
 }
 
 function getWeatherFromApi(userCity) {
+  saveCities.push(userCity);
+  localStorage.setItem('cityWeather', JSON.stringify(saveCities));
+
+  // String Interpolation
+  var apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${userCity}&cnt=5&units=imperial&APPID=80c991ba85f86514d476eeb47dc91430`;
+
   if (!userCity) {
     alert('Please enter a valid city');
   }
   try {
-    fetch(
-      // String Interpolation
-      `https://api.openweathermap.org/data/2.5/forecast?q=${userCity}&cnt=5&units=imperial&APPID=80c991ba85f86514d476eeb47dc91430`
-    )
+    fetch(apiUrl)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -42,26 +47,113 @@ function populateCityCurrentDate(city) {
   document.querySelector('.city-weather-display .hide').style.display = 'block';
   var currentCityList = city.list[0];
   var cityNameSelector = document.querySelector('.city-name');
+  // date
   var currentDate = currentCityList.dt_txt;
   var cityName = city.city.name;
 
   cityNameSelector.innerText = `${cityName} (${currentDate})`;
 
-  // date
+  // temp
   var currentTemp = currentCityList.main.temp;
   var cityTempSelector = document.querySelector('.city-temp span');
   cityTempSelector.innerText = currentTemp;
-  // temp
+
+  // wind
   var currentWind = currentCityList.wind.speed;
   var cityWindSelector = document.querySelector('.city-wind span');
   cityWindSelector.innerText = currentWind;
-  // wind
+
+  // humidity
   var currentHumidity = currentCityList.main.humidity;
   var cityHumiditySelector = document.querySelector('.city-humidity span');
   cityHumiditySelector.innerText = currentHumidity;
-  // humidity
+
   var cloudIcon = currentCityList.weather[0].icon;
+
+  populateForecastData(city);
 
   // cloud icon
   console.log('city:', city);
 }
+
+function populateForecastData(city) {
+  document.querySelector('.city-forecast-display .hide').style.display =
+    'block';
+
+  var currentCityList = city.list;
+
+  // targeting hardcoded container for the display
+  var forecastDisplayContainer = document.querySelector('.forecast-display');
+
+  //  FORECAST DATE HEADING
+  // creating the h2 element to add to the forecast day container
+  forecastHeadingEl = document.createElement('h2');
+  forecastHeadingEl.classList.add('forecast-heading');
+  // adding the heading text for the forecast day container
+  forecastHeadingEl.innerText = '5-Day Forecast';
+  // adding 1 day forecast to the display container
+  forecastDisplayContainer.appendChild(forecastHeadingEl);
+
+  // creating div to go into forecast display container
+  var forecastDayEl = document.createElement('div');
+  forecastDayEl.classList.add('forecast-day');
+  forecastDisplayContainer.appendChild(forecastDayEl);
+
+  for (var i = 0; i < currentCityList.length; i++) {
+    console.log('currentCityList', currentCityList);
+    // FORECAST DATE HEADING
+    var forecastDate = currentCityList[i].dt_txt;
+    console.log('forecastDate', forecastDate);
+    var forecastDateEl = document.createElement('h3');
+    forecastDateEl.classList.add('forecast-date');
+    forecastDateEl.innerHTML = forecastDate;
+    // adding heading to forecast day container
+    forecastDayEl.appendChild(forecastDateEl);
+
+    // ICON
+    var forecastIcon = currentCityList[i].weather[0].icon;
+    var dayOneIconImage =
+      'https://api.openweathermap.org/img/w/' + forecastIcon + '.png';
+    // creating container for icon from weather api
+    var forecastIconContainer = document.createElement('div');
+    // creating i tag for icon
+    var forecastIconEl = document.createElement('img');
+    forecastIconEl.setAttribute('src', dayOneIconImage);
+    // adding i tag with icon to container
+    forecastIconContainer.appendChild(forecastIconEl);
+    forecastDayEl.appendChild(forecastIconContainer);
+
+    // TEMP
+    // creating temperature p tag for forecast day container
+    var dayTemp = document.createElement('p');
+    dayTemp.classList.add('day-temp');
+    var currentTemp = currentCityList[i].main.temp;
+    dayTemp.innerHTML = `Temp: <span>${currentTemp}</span>`;
+    // Adding Temp
+    forecastDayEl.appendChild(dayTemp);
+  }
+}
+
+function onPageLoad() {
+  var getSaveCities = localStorage.getItem('cityWeather');
+  console.log(getSaveCities);
+
+  // define a variable of search area
+  // for loop array getSaveCities
+  // create btn element
+  // value of innerHTML = getSaveCities[i]
+  // append btn to container
+  // outside of function add click events to run functions again use event.target
+  // google how to find target of event
+}
+
+onPageLoad();
+
+// WIND
+// var currentWind = currentCityList.wind.speed;
+// var cityWindSelector = document.querySelector('.city-wind span');
+// cityWindSelector.innerText = currentWind;
+// HUMIDITY
+// var currentHumidity = currentCityList.main.humidity;
+// var cityHumiditySelector = document.querySelector('.city-humidity span');
+// cityHumiditySelector.innerText = currentHumidity;

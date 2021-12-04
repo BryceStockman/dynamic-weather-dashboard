@@ -1,12 +1,11 @@
-body .container {
-  display: flex;
-}
-
-.user-search-list,
-.city-weather-display {
-  width: 50%;
+#header {
+  background-color: #241059;
 }
 
 .city-weather-display .hide {
+  display: none;
+}
+
+.city-forecast-display .hide {
   display: none;
 }

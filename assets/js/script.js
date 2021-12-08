@@ -26,7 +26,7 @@ function getWeatherFromApi(userCity) {
     fetch(apiUrl)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        console.log('api data', data);
         populateCityData(data);
       });
   } catch (error) {
@@ -135,8 +135,8 @@ function populateForecastData(city) {
 }
 
 function onPageLoad() {
-  var getSaveCities = localStorage.getItem('cityWeather');
-  console.log(getSaveCities);
+  var getSaveCities = JSON.parse(localStorage.getItem('cityWeather'));
+  populatePrevCityBtns(getSaveCities);
 
   // define a variable of search area
   // for loop array getSaveCities
@@ -145,6 +145,15 @@ function onPageLoad() {
   // append btn to container
   // outside of function add click events to run functions again use event.target
   // google how to find target of event
+}
+
+function populatePrevCityBtns(prevCities = []) {
+  var prevCityContainer = document.querySelector('.prev-city-btns');
+  prevCities.forEach(function (indexValue) {
+    var prevCityBtn = document.createElement('button');
+    prevCityBtn.innerText = indexValue;
+    prevCityContainer.appendChild(prevCityBtn);
+  });
 }
 
 onPageLoad();

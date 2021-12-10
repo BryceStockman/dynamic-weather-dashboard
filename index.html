@@ -20,9 +20,7 @@
         container
         d-flex
         justify-content-center
-        text-center
-        bg-primary
-        text-white
+        text-center text-white
         my-4
       "
     >
@@ -61,7 +59,7 @@
       </section>
 
       <!-- CITY WEATHER DASHBOARD SECTION -->
-      <div class="container">
+      <div id="main-container" class="container">
         <div class="row">
           <section class="city-weather-display col-12 border">
             <div class="hide">
@@ -78,27 +76,16 @@
           <!-- 5 DAY FORECAST -->
           <section class="city-forecast-display">
             <div class="container">
-              <div class="forecast-display row d-flex hide">
-                <!-- <h2 class="forecast-heading">5-Day Forecast</h2>
-                <div class="forecast-day">
-                  <h3 class="forecast-date"></h3>
-                  <div class="weather-icon"><i class="fas fa-cloud"></i></div>
-                  <p class="day-temp">Temp: <span></span></p>
-                  <p class="day-wind">Wind: <span></span></p>
-                  <p class="day-humidity">Humidity: <span></span></p>
-                </div> -->
-              </div>
+              <div class="forecast-display row d-flex hide"></div>
             </div>
           </section>
         </div>
       </div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
-      integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
-      crossorigin="anonymous"
-    ></script>
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js></script>
     <script
       src="https://kit.fontawesome.com/3b2adb7b87.js"
       crossorigin="anonymous"

@@ -2,8 +2,9 @@ var submitBtn = document.querySelector('.weather-form');
 var prevCityBtns = document.querySelector('.prev-city-btns');
 var saveCities = [];
 
+var currentDate = moment().format('M/D/YYYY');
+
 function getUserSearchInput() {
-  console.log(document.querySelector('.user-city-input').value);
   return document.querySelector('.user-city-input').value;
 }
 
@@ -21,11 +22,11 @@ function getWeatherFromApi(userCity) {
     fetch(apiUrl)
       .then((response) => response.json())
       .then((data) => {
-        console.log('api data', data);
         populateCityData(data);
+        console.log('api data', data);
       });
   } catch (error) {
-    console.log('error encountered trying to fetch data', error);
+    alert('error encountered trying to fetch data');
   }
 }
 
@@ -34,11 +35,11 @@ function populateCityData(cityData) {
 }
 
 function populateCityCurrentDate(city) {
+  // var mainContainer = document.querySelector('#main-container');
+  // mainContainer.innerHTML = '';
   document.querySelector('.city-weather-display .hide').style.display = 'block';
   var currentCityList = city.list[0];
   var cityNameSelector = document.querySelector('.city-name');
-  // date
-  var currentDate = currentCityList.dt_txt;
   var cityName = city.city.name;
 
   cityNameSelector.innerText = `${cityName} (${currentDate})`;
@@ -61,9 +62,6 @@ function populateCityCurrentDate(city) {
   var cloudIcon = currentCityList.weather[0].icon;
 
   populateForecastData(city);
-
-  // cloud icon
-  console.log('city:', city);
 }
 
 function populateForecastData(city) {
@@ -74,14 +72,13 @@ function populateForecastData(city) {
 
   // targeting hardcoded container for the display
   var forecastDisplayContainer = document.querySelector('.forecast-display');
-
+  forecastDisplayContainer.innerHTML = '';
   //  FORECAST DATE HEADING
   // creating the h2 element to add to the forecast day container
   forecastHeadingEl = document.createElement('h2');
   forecastHeadingEl.classList.add('forecast-heading', 'col-12', 'm-2', 'p-2');
   // adding the heading text for the forecast day container
-  forecastHeadingEl.innerText = `5-Day Forecast: ${city.name}`;
-  console.log('city', city);
+  forecastHeadingEl.innerText = '5-Day Forecast: ';
   // adding 1 day forecast to the display container
   forecastDisplayContainer.appendChild(forecastHeadingEl);
 
@@ -91,11 +88,14 @@ function populateForecastData(city) {
     forecastDayEl.classList.add('forecast-day', 'col', 'p-2');
     forecastDisplayContainer.appendChild(forecastDayEl);
     // FORECAST DATE HEADING
-    var forecastDate = currentCityList[i].dt_txt;
+    var forecastDate = moment()
+      .add(i + 1, 'days')
+      .format('M/D/YYYY');
     // FORECAST DAY DATE
     var forecastDateEl = document.createElement('h3');
     forecastDateEl.classList.add('forecast-date', 'text-center');
     forecastDateEl.innerHTML = forecastDate;
+    console.log('forecast date: ', forecastDate);
     // adding heading to forecast day container
     forecastDayEl.appendChild(forecastDateEl);
 
@@ -121,6 +121,24 @@ function populateForecastData(city) {
     dayTemp.innerHTML = `Temp: <span>${currentTemp}</span>`;
     // Adding Temp
     forecastDayEl.appendChild(dayTemp);
+
+    // WIND
+    // creating temperature p tag for forecast day container
+    var dayWind = document.createElement('p');
+    dayWind.classList.add('day-wind');
+    var currentWind = currentCityList[i].wind.speed;
+    dayWind.innerHTML = `Wind: <span>${currentWind}</span>`;
+    // Adding Temp
+    forecastDayEl.appendChild(dayWind);
+
+    // HUMIDITY
+    // creating temperature p tag for forecast day container
+    var dayHumidity = document.createElement('p');
+    dayHumidity.classList.add('day-humidity');
+    var currentHumidity = currentCityList[i].main.humidity;
+    dayHumidity.innerHTML = `Humidity: <span>${currentHumidity}</span>`;
+    // Adding Temp
+    forecastDayEl.appendChild(dayHumidity);
   }
 }
 
@@ -141,9 +159,8 @@ function populatePrevCityBtns(prevCities = []) {
   var prevCityContainer = document.querySelector('.prev-city-btns');
   prevCities.forEach(function (indexValue) {
     var prevCityBtn = document.createElement('button');
+    prevCityBtn.setAttribute('id', indexValue);
     prevCityBtn.classList.add('btn', 'btn-secondary', 'col-8');
-    prevCityBtn.setAttribute('data-btn-id', indexValue);
-    console.log('indexValue', indexValue);
     prevCityBtn.innerText = indexValue;
     prevCityContainer.appendChild(prevCityBtn);
   });
@@ -156,12 +173,10 @@ submitBtn.addEventListener('submit', function (event) {
 });
 
 prevCityBtns.addEventListener('click', function (e) {
-  userCity = [];
   e.preventDefault();
   console.log(e.target);
-  prevCityBtn = document.querySelector('.btn-secondary');
-  var uniqueBtnId = prevCityBtn.innerText;
-  getWeatherFromApi(uniqueBtnId);
+  var prevCityBtn = e.target.innerHTML;
+  getWeatherFromApi(prevCityBtn);
 });
 
 onPageLoad();

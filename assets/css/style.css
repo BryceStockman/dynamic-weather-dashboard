@@ -1,5 +1,8 @@
 #header {
-  background-color: #241059 !important;
+  background-color: #3b6dc3;
+  background-image: linear-gradient(178deg, #3b6dc3, #241059) !important;
+  /* start #3B6DC3 */
+  /* stop #241059 */
 }
 
 /* BUTTONS */

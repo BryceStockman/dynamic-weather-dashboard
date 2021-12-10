@@ -1,7 +1,79 @@
 #header {
-  background-color: #241059;
+  background-color: #241059 !important;
 }
 
+/* BUTTONS */
+.btn {
+  background-color: #5aa2e9;
+  color: white;
+  border: none;
+}
+
+.btn:hover {
+  background-color: #3671ac;
+  color: white;
+  border: none;
+}
+
+.btn-secondary {
+  background-color: #b7b7b7;
+  color: white;
+  border: none;
+  margin: 5px 0;
+}
+
+.btn-secondary:hover {
+  background-color: #7e7e7e;
+  color: white;
+  border: none;
+}
+
+.border-division {
+  width: 287px;
+  height: 25px;
+  position: relative;
+  z-index: 1;
+}
+
+.border-division:before {
+  content: '';
+  position: absolute;
+  left: 25px;
+  bottom: 10px;
+  width: 80%; /* or 100px */
+  border-bottom: 1px solid #b7b7b7;
+}
+
+.user-city-input {
+  width: 65%;
+}
+
+/* 5 DAY FORECAST STYLES */
+.city-forecast-display {
+  padding: 0;
+}
+
+.city-forecast-display .container {
+  padding: 0;
+}
+
+.city-forecast-display h3 {
+  font-size: 1rem;
+  width: 100%;
+}
+
+.icon-container img {
+  margin: auto;
+}
+
+.forecast-day {
+  background-color: #33475a;
+  color: white;
+  margin: 0 5px;
+  border-radius: 5px;
+}
+
+/* DISPLAY FOR WEATHER DASHBOARD */
 .city-weather-display .hide {
   display: none;
 }

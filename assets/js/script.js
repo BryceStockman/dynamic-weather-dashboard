@@ -1,11 +1,6 @@
 var submitBtn = document.querySelector('.weather-form');
+var prevCityBtns = document.querySelector('.prev-city-btns');
 var saveCities = [];
-
-// On any submit you need to preventDefault
-submitBtn.addEventListener('submit', function (event) {
-  event.preventDefault();
-  getWeatherFromApi(getUserSearchInput());
-});
 
 function getUserSearchInput() {
   console.log(document.querySelector('.user-city-input').value);
@@ -35,11 +30,6 @@ function getWeatherFromApi(userCity) {
 }
 
 function populateCityData(cityData) {
-  // 5 day forecast - 5 days
-  // picture of weather
-  // temp
-  // wind
-  // humidity
   populateCityCurrentDate(cityData);
 }
 
@@ -88,24 +78,23 @@ function populateForecastData(city) {
   //  FORECAST DATE HEADING
   // creating the h2 element to add to the forecast day container
   forecastHeadingEl = document.createElement('h2');
-  forecastHeadingEl.classList.add('forecast-heading');
+  forecastHeadingEl.classList.add('forecast-heading', 'col-12', 'm-2', 'p-2');
   // adding the heading text for the forecast day container
-  forecastHeadingEl.innerText = '5-Day Forecast';
+  forecastHeadingEl.innerText = `5-Day Forecast: ${city.name}`;
+  console.log('city', city);
   // adding 1 day forecast to the display container
   forecastDisplayContainer.appendChild(forecastHeadingEl);
 
-  // creating div to go into forecast display container
-  var forecastDayEl = document.createElement('div');
-  forecastDayEl.classList.add('forecast-day');
-  forecastDisplayContainer.appendChild(forecastDayEl);
-
   for (var i = 0; i < currentCityList.length; i++) {
-    console.log('currentCityList', currentCityList);
+    // creating div to go into forecast display container
+    var forecastDayEl = document.createElement('div');
+    forecastDayEl.classList.add('forecast-day', 'col', 'p-2');
+    forecastDisplayContainer.appendChild(forecastDayEl);
     // FORECAST DATE HEADING
     var forecastDate = currentCityList[i].dt_txt;
-    console.log('forecastDate', forecastDate);
+    // FORECAST DAY DATE
     var forecastDateEl = document.createElement('h3');
-    forecastDateEl.classList.add('forecast-date');
+    forecastDateEl.classList.add('forecast-date', 'text-center');
     forecastDateEl.innerHTML = forecastDate;
     // adding heading to forecast day container
     forecastDayEl.appendChild(forecastDateEl);
@@ -116,6 +105,7 @@ function populateForecastData(city) {
       'https://api.openweathermap.org/img/w/' + forecastIcon + '.png';
     // creating container for icon from weather api
     var forecastIconContainer = document.createElement('div');
+    forecastIconContainer.classList.add('icon-container', 'd-flex');
     // creating i tag for icon
     var forecastIconEl = document.createElement('img');
     forecastIconEl.setAttribute('src', dayOneIconImage);
@@ -151,10 +141,28 @@ function populatePrevCityBtns(prevCities = []) {
   var prevCityContainer = document.querySelector('.prev-city-btns');
   prevCities.forEach(function (indexValue) {
     var prevCityBtn = document.createElement('button');
+    prevCityBtn.classList.add('btn', 'btn-secondary', 'col-8');
+    prevCityBtn.setAttribute('data-btn-id', indexValue);
+    console.log('indexValue', indexValue);
     prevCityBtn.innerText = indexValue;
     prevCityContainer.appendChild(prevCityBtn);
   });
 }
+
+// On any submit you need to preventDefault
+submitBtn.addEventListener('submit', function (event) {
+  event.preventDefault();
+  getWeatherFromApi(getUserSearchInput());
+});
+
+prevCityBtns.addEventListener('click', function (e) {
+  userCity = [];
+  e.preventDefault();
+  console.log(e.target);
+  prevCityBtn = document.querySelector('.btn-secondary');
+  var uniqueBtnId = prevCityBtn.innerText;
+  getWeatherFromApi(uniqueBtnId);
+});
 
 onPageLoad();
 

@@ -33,34 +33,37 @@
       <section class="user-search-list col-4">
         <h2>Search for a city:</h2>
         <form method="get" class="weather-form">
-          <div class="container justify-content-start mb-2 p-0">
-            <div class="row">
-              <div class="user-weather-input">
-                <label for="user-search" class="col-12">Enter City</label>
-                <input
-                  type="text"
-                  name="user-search"
-                  class="user-city-input col-8"
-                />
-              </div>
+          <div class="mb-2 p-0">
+            <div class="user-weather-input">
+              <label for="user-search"></label>
+              <input
+                type="text"
+                name="user-search"
+                class="user-city-input col-8"
+              />
             </div>
           </div>
 
           <div class="container p-0">
             <div class="row">
               <div class="submit">
-                <input type="submit" value="Get City Weather" class="col-8" />
+                <input
+                  type="submit"
+                  value="Get City Weather"
+                  class="btn primary-btn col-8"
+                />
               </div>
             </div>
           </div>
         </form>
+        <div class="border-division"></div>
         <div class="prev-city-btns"></div>
       </section>
 
       <!-- CITY WEATHER DASHBOARD SECTION -->
       <div class="container">
         <div class="row">
-          <section class="city-weather-display col-12">
+          <section class="city-weather-display col-12 border">
             <div class="hide">
               <!-- MAIN DISPLAY -->
               <div class="main-display col-12">
@@ -73,9 +76,9 @@
           </section>
 
           <!-- 5 DAY FORECAST -->
-          <section class="city-forecast-display col-12">
-            <div class="hide">
-              <div class="forecast-display">
+          <section class="city-forecast-display">
+            <div class="container">
+              <div class="forecast-display row d-flex hide">
                 <!-- <h2 class="forecast-heading">5-Day Forecast</h2>
                 <div class="forecast-day">
                   <h3 class="forecast-date"></h3>

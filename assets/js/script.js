@@ -85,7 +85,13 @@ function populateForecastData(city) {
   for (var i = 0; i < currentCityList.length; i++) {
     // creating div to go into forecast display container
     var forecastDayEl = document.createElement('div');
-    forecastDayEl.classList.add('forecast-day', 'col', 'p-2');
+    forecastDayEl.classList.add(
+      'forecast-day',
+      'col',
+      'col-md-3',
+      'm-2',
+      'p-2'
+    );
     forecastDisplayContainer.appendChild(forecastDayEl);
     // FORECAST DATE HEADING
     var forecastDate = moment()

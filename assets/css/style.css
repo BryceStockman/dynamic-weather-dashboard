@@ -1,8 +1,6 @@
 #header {
   background-color: #3b6dc3;
   background-image: linear-gradient(178deg, #3b6dc3, #241059) !important;
-  /* start #3B6DC3 */
-  /* stop #241059 */
 }
 
 /* BUTTONS */
@@ -32,7 +30,7 @@
 }
 
 .border-division {
-  width: 287px;
+  width: 90%;
   height: 25px;
   position: relative;
   z-index: 1;
@@ -43,7 +41,7 @@
   position: absolute;
   left: 25px;
   bottom: 10px;
-  width: 80%; /* or 100px */
+  width: 60%;
   border-bottom: 1px solid #b7b7b7;
 }
 
@@ -83,4 +81,10 @@
 
 .city-forecast-display .hide {
   display: none;
+}
+
+@media screen and (max-width: 990px) {
+  .border-division:before {
+    left: 15px;
+  }
 }
